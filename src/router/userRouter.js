@@ -8,6 +8,8 @@ const userController = require("../controller/userController.js");
 // Define uma rota GET para obter todos os usuários, utilizando o método getAllUser do userController.
 router.get("/user", userController.getAllUser);
 
+router.post("/user", userController.createUser);
+
 // Exporta o objeto Router para que ele possa ser utilizado em outros arquivos.
 module.exports = router;
 

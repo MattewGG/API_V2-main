@@ -5,15 +5,20 @@ const userRouter = require("./router/userRouter.js");
 
 const productRouter = require("./router/productRouter.js");
 
+const bodyParser = require("body-parser");
+
 // Define a porta em que o servidor irá escutar.
 const PORT = 3000;
 
 // Cria uma instância do aplicativo Express.
 const app = express();
 
+// Aplica o middleware do bodyParser
+app.use(bodyParser.json());
+
 // Define uma rota raiz que responde com uma mensagem "Hello World!".
 app.get("/", (req, res) => {
-  res.send(`<h1>Hello Word!</h1>`);
+  res.send(`<h1>Hello World!</h1>`);
 });
 
 // Define o uso do roteador de usuário no caminho "/api".

@@ -1,4 +1,5 @@
 // Importa o módulo userService do arquivo "../service/user.js".
+const { use } = require("../router/userRouter.js");
 const userService = require("../service/user.js");
 
 // Função assíncrona que lida com a requisição para obter todos os usuários.
@@ -18,8 +19,37 @@ async function getAllUser(req, res) {
   }
 }
 
+async function createUser(req, res) {
+  const { name, email, password } = req.body;
+
+  try {
+    await userService.createUser(name, email, password);
+    res.status(201).json({ message: "Sucess" });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error adding user!",
+      error: error.message,
+    });
+  }
+}
+
+async function updateUser(req, res) {
+  try {
+    const { id } = req.params;
+    const { name, email, password } = req.params;
+    await userService.updateUser(id, name, email, password);
+    res.status(204).json("Sucess");
+  } catch (error) {
+    res.status(500).send({
+      message: "Error updating user!",
+      body: error.message,
+    });
+  }
+}
+
 // Exporta a função getAllUser como um objeto para ser utilizado em outros arquivos.
 module.exports = {
+  createUser,
   getAllUser,
 };
 
