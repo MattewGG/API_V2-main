@@ -39,11 +39,23 @@ async function updateUser(id, name, email, password) {
 }
 
 async function deleteUser(id) {
-  const connection = mysql.createConnection(databaseConfig);
+  const connection = await mysql.createConnection(databaseConfig);
 
   await connection.query("DELETE FROM user WHERE id = ?", [id]);
 
   await connection.end();
+}
+
+async function getUserById(id) {
+  const connection = await mysql.createConnection(databaseConfig);
+
+  const [user] = await connection.query("SELECT * FROM user WHERE id = ?", [
+    id,
+  ]);
+
+  await connection.end();
+
+  return user;
 }
 
 // Exporta a função getAllUser para que ela possa ser utilizada em outros arquivos.
@@ -52,4 +64,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  getUserById,
 };

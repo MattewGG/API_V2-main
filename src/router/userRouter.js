@@ -10,6 +10,10 @@ router.get("/user", userController.getAllUser);
 
 router.post("/user", userController.createUser);
 
+router.put("/user/id", userController.updateUser);
+router.delete("/user/:id", userController.deleteUser);
+router.get("/user/:id", userController.getUserById);
+
 // Exporta o objeto Router para que ele possa ser utilizado em outros arquivos.
 module.exports = router;
 

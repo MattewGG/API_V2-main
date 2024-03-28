@@ -47,10 +47,40 @@ async function updateUser(req, res) {
   }
 }
 
+async function deleteUser(req, res) {
+  try {
+    const { id } = req.params;
+    await userService.deleteUser(id);
+    res.status(200).send({ message: "Deleted user" });
+  } catch (error) {
+    res.status(500).send({
+      message: "erros deleting user",
+      error: error.mensage,
+    });
+  }
+}
+
+async function getUserById(req, res) {
+  try {
+    const { id } = req.params;
+
+    const user = await userService.getUserById(id);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).send({
+      message: "Error getting user by id",
+      error: error.menssage,
+    });
+  }
+}
+
 // Exporta a função getAllUser como um objeto para ser utilizado em outros arquivos.
 module.exports = {
   createUser,
   getAllUser,
+  updateUser,
+  deleteUser,
+  getUserById,
 };
 
 //Tabela: product(id, descricao, quantidadeEstoque, unidadeMedida, valorUnidade)
